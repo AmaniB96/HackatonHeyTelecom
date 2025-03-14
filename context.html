@@ -22,7 +22,7 @@
                     <div class="theme-toggle-track">
                       <div class="theme-toggle-thumb"></div>
                     </div>
-                  </div>
+                </div>
                 <div class="profile-container">
                     <div class="profile-pic">
                         <img src="https://em-content.zobj.net/source/apple/155/woman-curly-haired-light-skin-tone_1f469-1f3fb-200d-1f9b1.png" alt="Photo de profil">
@@ -38,6 +38,15 @@
         <!-- Sidebar avec paramètres -->
         <div class="sidebar">
             <h2 class="sidebar-title">Paramètres</h2>
+
+            <!-- Nouveau paramètre Assets -->
+            <div class="parameter">
+                <label class="parameter-label">🖼️ Assets</label>   
+                <div class="parameter-select" id="open-assets-modal">
+                    <span>Bibliothèque d'Assets</span>
+                    <span class="plus">+</span>
+                </div>
+            </div>
 
             <div class="parameter">
                 <label class="parameter-label">👨‍🦱 Audiance</label>   
@@ -77,59 +86,144 @@
             </div>
         </div>
         
-        <!-- Zone centrale - Maintenant dédiée à l'image générée -->
-<div class="main-content">
-    <div class="description-area">
-        <h3 class="description-title">Description de l'image</h3>
-        <textarea id="description" placeholder="Décrivez l'image que vous souhaitez générer..."></textarea>
-    </div>
-    
-    <div class="image-generation">
-        <h3 class="generation-title">Image générée</h3>
-        <div class="image-preview" id="image-preview">
-            <span>L'aperçu de l'image apparaîtra ici</span>
-            <img id="generated-image" src="" alt="Image générée">
-        </div>
-        
-        <button class="button" id="generate-button">Générer l'image</button>
-        
-        <div class="adjustment-input">
-            <h3 class="adjustment-title">Ajustements</h3>
-            <input type="text" class="input-field" id="adjustment" placeholder="Ex: Ajoute un fond plus clair" disabled>
-            <button class="button" id="adjust-button" style="margin-top: 12px;" disabled>Ajuster l'image</button>
-        </div>
-    </div>
-</div>
-
-<!-- Zone droite - Maintenant dédiée à l'aperçu du prompt -->
-
-<div class="right-panel">
-    
-    <h2 class="right-title">Aperçu du prompt</h2>
-    
-    <div class="prompt-preview">
-        <h3>Prompt final</h3>
-        <div class="prompt-text" id="prompt-preview">
-            Saisissez une description et définissez les paramètres pour générer votre prompt...
-        </div>
-    </div>
-</div>
-    
-    <!-- Modal pour la sélection des options -->
-    <div class="modal-overlay" id="modal-overlay">
-        <div class="modal">
-            <div class="modal-header">
-                <div class="modal-title" id="modal-title">Sélectionner une option</div>
-                <button class="modal-close" id="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="options-list" id="options-list">
-                    <!-- Options dynamiques ici -->
+        <!-- Zone centrale - Maintenant dédiée uniquement à l'affichage des images générées -->
+        <div class="main-content">
+            <div class="image-generation-history">
+                <h3 class="generation-title">Images générées</h3>
+                <div class="image-history-container" id="image-history-container">
+                    <!-- Ici seront affichées les images générées en grille de 2x2 -->
+                    <div class="image-generation-item" id="image-preview">
+                        <div class="image-grid">
+                            <div class="image-preview-container">
+                                <span>L'aperçu de l'image apparaîtra ici</span>
+                                <img id="generated-image-1" src="" alt="Image générée 1" class="generated-image">
+                            </div>
+                            <div class="image-preview-container">
+                                <span>L'aperçu de l'image apparaîtra ici</span>
+                                <img id="generated-image-2" src="" alt="Image générée 2" class="generated-image">
+                            </div>
+                            <div class="image-preview-container">
+                                <span>L'aperçu de l'image apparaîtra ici</span>
+                                <img id="generated-image-3" src="" alt="Image générée 3" class="generated-image">
+                            </div>
+                            <div class="image-preview-container">
+                                <span>L'aperçu de l'image apparaîtra ici</span>
+                                <img id="generated-image-4" src="" alt="Image générée 4" class="generated-image">
+                            </div>
+                        </div>
+                        <div class="generation-info">
+                            <span class="generation-timestamp">Génération du 14/03/2025 à 10:30</span>
+                            <span class="generation-prompt">Prompt utilisé : ...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- Zone droite - Maintenant avec description et ajustements -->
+        <div class="right-panel">
+            <h2 class="right-title">Aperçu du prompt</h2>
+            
+            <div class="prompt-preview">
+                <h3>Prompt final</h3>
+                <div class="prompt-text" id="prompt-preview">
+                    Saisissez une description et définissez les paramètres pour générer votre prompt...
+                </div>
+            </div>
+            
+            <!-- Déplacé ici depuis la zone centrale -->
+            <div class="description-area">
+                <h3 class="description-title">Description de l'image</h3>
+                <textarea id="description" placeholder="Décrivez l'image que vous souhaitez générer..."></textarea>
+            </div>
+            
+            <!-- Bouton de génération -->
+            <button class="button" id="generate-button">Générer l'image</button>
+            
+            <!-- Déplacé ici depuis la zone centrale -->
+            <div class="adjustment-input">
+                <h3 class="adjustment-title">Ajustements</h3>
+                <input type="text" class="input-field" id="adjustment" placeholder="Ex: Ajoute un fond plus clair">
+                <button class="button" id="adjust-button" style="margin-top: 12px;">Ajuster l'image</button>
+            </div>
+        </div>
+        
+        <!-- Modal pour la sélection des options -->
+        <div class="modal-overlay" id="modal-overlay">
+            <div class="modal">
+                <div class="modal-header">
+                    <div class="modal-title" id="modal-title">Sélectionner une option</div>
+                    <button class="modal-close" id="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="options-list" id="options-list">
+                        <!-- Options dynamiques ici -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal pour les assets -->
+        <div class="modal-overlay" id="assets-modal-overlay">
+            <div class="modal assets-modal">
+                <div class="modal-header">
+                    <div class="modal-title">Gérer vos assets</div>
+                    <button class="modal-close" id="assets-modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="assets-container">
+                        <div class="assets-header">
+                            <h3>Assets sélectionnés</h3>
+                            <span class="assets-count" id="assets-count">0/5</span>
+                        </div>
+                        
+                        <div class="selected-assets" id="selected-assets">
+                            <div class="no-assets-message">Aucun asset sélectionné</div>
+                        </div>
+                        
+                        <div class="assets-categories">
+                            <h3>Catégories</h3>
+                            <div class="category-tabs">
+                                <button class="category-tab active" data-category="logos">Logos</button>
+                                <button class="category-tab" data-category="produits">Produits</button>
+                                <button class="category-tab" data-category="personnages">Personnages</button>
+                                <button class="category-tab" data-category="decors">Décors</button>
+                            </div>
+                        </div>
+                        
+                        <div class="assets-grid" id="assets-grid">
+                            <!-- Les assets seront générés dynamiquement ici -->
+                        </div>
+                        
+                        <div class="assets-actions">
+                            <button class="button secondary-button" id="upload-asset">Importer un asset</button>
+                            <button class="button" id="save-assets">Appliquer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Nouveau modal pour afficher les images en grand -->
+        <div class="modal-overlay" id="image-modal-overlay">
+            <div class="modal image-modal">
+                <div class="modal-header">
+                    <div class="modal-title">Aperçu de l'image</div>
+                    <button class="modal-close" id="image-modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="image-modal-content">
+                        <img id="modal-image" src="" alt="Image en plein écran">
+                    </div>
+                    <div class="image-modal-actions">
+                        <button class="button secondary-button" id="download-image">Télécharger</button>
+                        <button class="button" id="use-image">Utiliser cette image</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script src="./js/context.js"></script>
     </div>
-    
-    <script src="./js/context.js"></script>
 </body>
 </html>
