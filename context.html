@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interface de génération d'images marketing assistée par IA</title>
+    <link rel="stylesheet" href="./style/context.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="logo-container">
+            <!-- Section logo (gauche) -->
+            <div class="logo-section">
+                <img src="https://www.kotplanet.be/wp-content/uploads/2023/08/2-1-1024x1024.png" alt="Logo de l'entreprise" class="company-logo">
+                <h1 class="logo-title">Hey! AI</h1>
+            </div>
+            
+            <!-- Section profil et nouvelle campagne (droite) -->
+            <div class="profile-campaign-section">
+                <div class="theme-toggle" id="themeToggle">
+                    <span class="theme-toggle-icon">☀️</span>
+                    <div class="theme-toggle-track">
+                      <div class="theme-toggle-thumb"></div>
+                    </div>
+                  </div>
+                <div class="profile-container">
+                    <div class="profile-pic">
+                        <img src="https://em-content.zobj.net/source/apple/155/woman-curly-haired-light-skin-tone_1f469-1f3fb-200d-1f9b1.png" alt="Photo de profil">
+                    </div>
+                    <div class="profile-name">Julie Martin</div>
+                </div>
+                <button class="new-campaign-btn">
+                    <span>Nouvelle campagne</span>
+                    <span class="plus-icon">+</span>
+                </button>
+            </div>
+        </div>
+        <!-- Sidebar avec paramètres -->
+        <div class="sidebar">
+            <h2 class="sidebar-title">Paramètres</h2>
+
+            <div class="parameter">
+                <label class="parameter-label">👨‍🦱 Audiance</label>   
+                <div class="parameter-select" data-param="audiance">
+                    <span>Sélectionner une audiance</span>
+                    <span class="plus">+</span>
+                </div>
+            </div>
+            
+            <div class="parameter">
+                <label class="parameter-label">📌 Objectif Marketing</label>
+                <div class="parameter-select" data-param="objectif">
+                    <span>Sélectionner un objectif</span>
+                    <span class="plus">+</span>
+                </div>
+            </div>
+            
+            <div class="parameter">
+                <label class="parameter-label">🎨 Format du visuel</label>
+                <div class="parameter-select" data-param="format">
+                    <span>Sélectionner un format</span>
+                    <span class="plus">+</span>
+                </div>
+            </div>
+            
+            <div class="parameter">
+                <label class="parameter-label">🌟 Ton et Ambiance</label>
+                <div class="parameter-select" data-param="ton">
+                    <span>Sélectionner un ton</span>
+                    <span class="plus">+</span>
+                </div>
+            </div>
+            
+            <div class="parameter">
+                <label class="parameter-label">⚠️ Élément obligatoire</label>
+                <input type="text" class="input-field" id="element-obligatoire" placeholder="Ex: Un téléphone en premier plan">
+            </div>
+        </div>
+        
+        <!-- Zone centrale - Maintenant dédiée à l'image générée -->
+<div class="main-content">
+    <div class="description-area">
+        <h3 class="description-title">Description de l'image</h3>
+        <textarea id="description" placeholder="Décrivez l'image que vous souhaitez générer..."></textarea>
+    </div>
+    
+    <div class="image-generation">
+        <h3 class="generation-title">Image générée</h3>
+        <div class="image-preview" id="image-preview">
+            <span>L'aperçu de l'image apparaîtra ici</span>
+            <img id="generated-image" src="" alt="Image générée">
+        </div>
+        
+        <button class="button" id="generate-button">Générer l'image</button>
+        
+        <div class="adjustment-input">
+            <h3 class="adjustment-title">Ajustements</h3>
+            <input type="text" class="input-field" id="adjustment" placeholder="Ex: Ajoute un fond plus clair" disabled>
+            <button class="button" id="adjust-button" style="margin-top: 12px;" disabled>Ajuster l'image</button>
+        </div>
+    </div>
+</div>
+
+<!-- Zone droite - Maintenant dédiée à l'aperçu du prompt -->
+
+<div class="right-panel">
+    
+    <h2 class="right-title">Aperçu du prompt</h2>
+    
+    <div class="prompt-preview">
+        <h3>Prompt final</h3>
+        <div class="prompt-text" id="prompt-preview">
+            Saisissez une description et définissez les paramètres pour générer votre prompt...
+        </div>
+    </div>
+</div>
+    
+    <!-- Modal pour la sélection des options -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title" id="modal-title">Sélectionner une option</div>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="options-list" id="options-list">
+                    <!-- Options dynamiques ici -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="./js/context.js"></script>
+</body>
+</html>

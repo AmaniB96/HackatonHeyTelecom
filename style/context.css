@@ -1,0 +1,597 @@
+/* Variables CSS */
+:root {
+    --primary-color: #6366f1;
+    --primary-hover: #4f46e5;
+    --bg-color: #f9fafb;
+    --sidebar-bg: #ffffff;
+    --border-color: #e5e7eb;
+    --text-color: #1f2937;
+    --text-light: #6b7280;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    --radius: 8px;
+}
+
+/* Mode sombre - Nuances de gris foncé/noir épurées */
+[data-theme="dark"] {
+    --primary-color: #6366f1; /* Gardé pour la cohérence */
+    --primary-hover: #4f46e5; /* Gardé pour la cohérence */
+    --bg-color: #121212; /* Gris très foncé presque noir */
+    --sidebar-bg: #1a1a1a; /* Gris foncé */
+    --border-color: #2a2a2a; /* Gris moyen foncé */
+    --text-color: #e0e0e0; /* Gris très clair */
+    --text-light: #a0a0a0; /* Gris moyen clair */
+    --shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Reset et styles globaux */
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+background-color: var(--bg-color);
+color: var(--text-color);
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+}
+
+/* Layout principal */
+.app-container {
+display: flex;
+height: 100vh;
+overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+width: 280px;
+background-color: var(--sidebar-bg);
+border-right: 1px solid var(--border-color);
+padding: 24px 16px;
+display: flex;
+flex-direction: column;
+height: 100%;
+overflow-y: auto;
+}
+
+.sidebar-title {
+font-size: 20px;
+font-weight: 600;
+margin-bottom: 24px;
+padding-bottom: 12px;
+border-bottom: 1px solid var(--border-color);
+}
+
+.parameter {
+margin-bottom: 20px;
+}
+
+.parameter-label {
+display: block;
+font-weight: 500;
+margin-bottom: 8px;
+font-size: 14px;
+}
+
+.parameter-select {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 10px 12px;
+background-color: white;
+border: 1px solid var(--border-color);
+border-radius: var(--radius);
+cursor: pointer;
+transition: all 0.2s;
+}
+
+.parameter-select:hover {
+border-color: var(--primary-color);
+}
+
+.parameter-select span {
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+color: var(--text-light);
+}
+
+.parameter-select.filled span {
+color: var(--text-color);
+font-weight: 500;
+}
+
+.parameter-select .plus {
+color: var(--primary-color);
+font-size: 18px;
+font-weight: bold;
+}
+
+/* Zone centrale - Maintenant dédiée à l'image générée */
+.main-content {
+flex: 1;
+padding: 24px;
+display: flex;
+flex-direction: column;
+height: 100%;
+overflow-y: auto;
+}
+
+.description-area {
+margin-bottom: 20px;
+height: 25%; /* Réduit pour laisser plus de place à l'image */
+}
+
+.description-title {
+font-size: 16px;
+font-weight: 600;
+margin-bottom: 12px;
+}
+
+textarea {
+width: 100%;
+height: calc(100% - 40px);
+padding: 12px;
+border: 1px solid var(--border-color);
+border-radius: var(--radius);
+resize: none;
+font-size: 14px;
+line-height: 1.5;
+}
+
+textarea:focus {
+outline: none;
+border-color: var(--primary-color);
+}
+
+.image-generation {
+flex: 1;
+display: flex;
+flex-direction: column;
+}
+
+.generation-title {
+font-size: 16px;
+font-weight: 600;
+margin-bottom: 12px;
+}
+
+.image-preview {
+background-color: white;
+border: 1px dashed var(--border-color);
+border-radius: var(--radius);
+flex: 1;
+min-height: 260px;
+margin-bottom: 20px;
+display: flex;
+align-items: center;
+justify-content: center;
+color: var(--text-light);
+font-size: 14px;
+}
+
+.image-preview img {
+max-width: 80%;
+max-height: 80%;
+border-radius: var(--radius);
+display: none;
+}
+
+.right-panel-header {
+margin-top: 0px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 24px;
+padding-bottom: 12px;
+border-bottom: 1px solid var(--border-color);
+}
+/* Zone droite - Maintenant dédiée à l'aperçu du prompt */
+.right-panel {
+width: 320px;
+background-color: var(--sidebar-bg);
+border-left: 1px solid var(--border-color);
+padding: 24px 16px;
+display: flex;
+flex-direction: column;
+height: 40%;
+overflow-y: auto;
+margin-top: 13px;
+}
+
+/* Titre à gauche */
+.right-title {
+font-size: 20px;
+font-weight: 600;
+margin-bottom: 0; /* Retirer la marge inférieure initiale */
+padding-bottom: 0; /* Retirer le padding inférieur initial */
+border-bottom: none; /* Retirer la bordure inférieure initiale */
+}
+
+.prompt-preview {
+background-color: white;
+border: 1px solid var(--border-color);
+border-radius: var(--radius);
+padding: 16px;
+flex: 1;
+overflow-y: auto;
+display: flex;
+flex-direction: column;
+}
+
+.prompt-preview h3 {
+font-size: 16px;
+font-weight: 600;
+margin-bottom: 12px;
+}
+
+.prompt-text {
+line-height: 1.5;
+font-size: 14px;
+color: var(--text-color);
+white-space: pre-wrap;
+flex: 1;
+}
+
+.button {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+background-color: rgba(180, 4, 4, 0.545);
+color: white;
+border: none;
+border-radius: var(--radius);
+padding: 12px 16px;
+font-weight: 500;
+cursor: pointer;
+transition: background-color 0.2s;
+width: 35%;
+margin: 0 auto; /* Centre le bouton horizontalement */
+display: block; /* Change inline-flex en block pour que margin auto fonctionne */
+}
+
+.button:hover {
+background-color: rgba(196, 24, 24, 0.752);
+}
+
+.button:disabled {
+background-color: var(--text-light);
+cursor: not-allowed;
+}
+
+.adjustment-input {
+margin-top: 20px;
+}
+
+.adjustment-title {
+font-size: 16px;
+font-weight: 600;
+margin-bottom: 12px;
+}
+
+/* Modal */
+.modal-overlay {
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: rgba(0, 0, 0, 0.5);
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 1000;
+opacity: 0;
+visibility: hidden;
+transition: all 0.3s;
+}
+
+.modal-overlay.active {
+opacity: 1;
+visibility: visible;
+}
+
+.modal {
+background-color: white;
+border-radius: var(--radius);
+width: 400px;
+max-width: 90%;
+max-height: 90vh;
+overflow-y: auto;
+box-shadow: var(--shadow);
+transform: translateY(-20px);
+transition: all 0.3s;
+}
+
+.modal-overlay.active .modal {
+transform: translateY(0);
+}
+
+.modal-header {
+padding: 16px;
+border-bottom: 1px solid var(--border-color);
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.modal-title {
+font-size: 18px;
+font-weight: 600;
+}
+
+.modal-close {
+background: none;
+border: none;
+cursor: pointer;
+font-size: 24px;
+color: var(--text-light);
+}
+
+.modal-body {
+padding: 16px;
+}
+
+.options-list {
+display: flex;
+flex-direction: column;
+gap: 8px;
+}
+
+.option-item {
+padding: 12px;
+border: 1px solid var(--border-color);
+border-radius: var(--radius);
+cursor: pointer;
+transition: all 0.2s;
+}
+
+.option-item:hover {
+border-color: var(--primary-color);
+background-color: rgba(99, 102, 241, 0.05);
+}
+
+.option-item.selected {
+border-color: var(--primary-color);
+background-color: rgba(99, 102, 241, 0.1);
+font-weight: 500;
+}
+
+/* Utilities */
+.input-field {
+width: 100%;
+padding: 10px 12px;
+border: 1px solid var(--border-color);
+border-radius: var(--radius);
+font-size: 14px;
+}
+
+.input-field:focus {
+outline: none;
+border-color: var(--primary-color);
+}
+
+/* Animation pour apparition des éléments */
+@keyframes fadeIn {
+from { opacity: 0; }
+to { opacity: 1; }
+}
+
+.fadeIn {
+animation: fadeIn 0.5s ease-out;
+}
+
+/* Logo et en-tête */
+/* Logo et en-tête */
+.logo-container {
+position: fixed;
+top: 15px;
+left: 20px;
+display: flex;
+align-items: center;
+z-index: 10;
+background-color: rgba(255, 255, 255, 0.9);
+padding: 8px 12px;
+border-radius: var(--radius);
+box-shadow: var(--shadow);
+width: calc(100% - 40px); /* Ajustement pour les marges */
+height: 60px; /* Hauteur fixe */
+justify-content: space-between; /* Espacement entre logo et profil */
+}
+
+.company-logo {
+height: 36px;
+width: auto;
+margin-right: 12px;
+}
+
+.logo-title {
+font-size: 20px;
+font-weight: 700;
+color: rgba(180, 4, 4, 0.545);
+margin: 0;
+}
+
+/* Section logo (gauche) */
+.logo-section {
+display: flex;
+align-items: center;
+}
+
+/* Section profil et nouvelle campagne (droite) */
+.profile-campaign-section {
+display: flex;
+align-items: center;
+gap: 20px; /* Espace entre la photo de profil et le bouton */
+}
+
+/* Conteneur photo de profil */
+.profile-container {
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+/* Photo de profil */
+.profile-pic {
+width: 40px;
+height: 40px;
+border-radius: 50%;
+overflow: hidden;
+border: 2px solid var(--primary-color);
+}
+
+.profile-pic img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+display: block;
+}
+
+/* Nom du profil */
+.profile-name {
+font-weight: 500;
+font-size: 14px;
+color: var(--text-color);
+}
+
+/* Bouton nouvelle campagne */
+.new-campaign-btn {
+display: flex;
+align-items: center;
+gap: 8px;
+background-color: rgba(180, 4, 4, 0.545);
+color: white;
+border: none;
+border-radius: var(--radius);
+padding: 8px 12px;
+font-size: 13px;
+font-weight: 500;
+cursor: pointer;
+transition: background-color 0.2s;
+}
+
+.new-campaign-btn:hover {
+background-color: rgba(196, 24, 24, 0.752);
+}
+
+.plus-icon {
+font-weight: bold;
+font-size: 16px;
+}
+
+/* Ajustement pour ne pas superposer le logo et le contenu */
+.app-container {
+padding-top: 80px; /* Espace pour la barre de navigation fixe */
+}
+
+/* Ajustement de la sidebar */
+.sidebar {
+margin-top: 10px;
+}
+
+/* Ajout du toggle pour le mode sombre */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.theme-toggle-track {
+    width: 40px;
+    height: 20px;
+    background-color: var(--border-color);
+    border-radius: 10px;
+    position: relative;
+    transition: background-color 0.3s;
+}
+
+.theme-toggle-thumb {
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s;
+}
+
+[data-theme="dark"] .theme-toggle-track {
+    background-color: var(--primary-color);
+}
+
+[data-theme="dark"] .theme-toggle-thumb {
+    transform: translateX(20px);
+}
+
+.theme-toggle-icon {
+    margin-right: 8px;
+    font-size: 16px;
+}
+
+/* Ajustement pour les couleurs spécifiques en mode sombre */
+[data-theme="dark"] .button {
+    background-color: rgba(180, 4, 4, 0.75);
+}
+
+[data-theme="dark"] .button:hover {
+    background-color: rgba(196, 24, 24, 0.85);
+}
+
+[data-theme="dark"] .logo-title {
+    color: rgba(180, 4, 4, 0.75);
+}
+
+[data-theme="dark"] .new-campaign-btn {
+    background-color: rgba(180, 4, 4, 0.75);
+}
+
+[data-theme="dark"] .new-campaign-btn:hover {
+    background-color: rgba(196, 24, 24, 0.85);
+}
+
+[data-theme="dark"] .logo-container {
+    background-color: rgba(26, 26, 26, 0.95);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Ajustements supplémentaires pour le mode sombre */
+[data-theme="dark"] .image-preview {
+    background-color: #1a1a1a;
+    border: 1px dashed #2a2a2a;
+}
+
+[data-theme="dark"] textarea,
+[data-theme="dark"] .input-field,
+[data-theme="dark"] .parameter-select {
+    background-color: #1e1e1e;
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .prompt-preview {
+    background-color: #1e1e1e;
+}
+
+[data-theme="dark"] .option-item {
+    background-color: #1e1e1e;
+}
+
+[data-theme="dark"] .option-item:hover {
+    background-color: #2c2c2c;
+}
+
+[data-theme="dark"] .option-item.selected {
+    background-color: rgba(99, 102, 241, 0.2);
+}
+
+[data-theme="dark"] .modal {
+    background-color: #1a1a1a;
+}
